@@ -8,21 +8,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 
 @Entity
-@Table(name = "examinations")
 public class Examination {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
-    private Integer length;
-
-    private String date;
-
     @JsonBackReference
-    @JoinColumn(name = "patient_id")
-    // creates patient_id in table examination
     @ManyToOne(fetch = FetchType.LAZY)
     @Valid
     private Patient patient;
@@ -34,6 +22,15 @@ public class Examination {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
+
+    private Integer length;
+
+    private String date;
 
     public String getPatientName () {
         return patient.getName();

@@ -24,11 +24,6 @@ public class ExaminationRestController {
         return service.addExamination(examination, patientId);
     }
 
-    @GetMapping("/get/{examinationId}")
-    public Examination getExamination (@PathVariable("examinationId") Long examinationId) {
-        return service.getExamination(examinationId);
-    }
-
     @GetMapping("/")
     public List<Examination> getAllExaminations () {
         return service.findAllExaminations();
@@ -37,6 +32,11 @@ public class ExaminationRestController {
     @DeleteMapping("/delete/{examinationId}")
     public void deleteExamination (@PathVariable("examinationId") Long examinationId) {
         service.deleteExamination(examinationId);
+    }
+
+    @GetMapping("/get/{examinationId}")
+    public Examination getExamination (@PathVariable("examinationId") Long examinationId) {
+        return service.getExamination(examinationId);
     }
 
     @GetMapping("/getpatient/{examinationId}")

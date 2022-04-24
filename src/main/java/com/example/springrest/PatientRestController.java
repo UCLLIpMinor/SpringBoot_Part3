@@ -15,6 +15,11 @@ import java.util.Map;
 @RequestMapping("/api/patient")
 public class PatientRestController {
 
+    @PostMapping("/add/doctor/{patientId}")
+    public Doctor addDoctor (@PathVariable("patientId") long patientId, @Valid @RequestBody Doctor doctor) {
+        return service.addDoctorToPatient(doctor, patientId);
+    }
+
     @Autowired
     private AppService service;
 
@@ -32,11 +37,6 @@ public class PatientRestController {
     public Iterable<Patient> add (@Valid @RequestBody Patient patient) {
         service.addPatient(patient);
         return service.findAllPatients();
-    }
-
-    @PostMapping("/add/doctor/{patientId}")
-    public Doctor addDoctor (@PathVariable("patientId") long patientId, @Valid @RequestBody Doctor doctor) {
-        return service.addDoctorToPatient(doctor, patientId);
     }
 
     // add with not @Valid patient is BAD_REQUEST and is redirected to this method (MethodArgumentNotValidException)

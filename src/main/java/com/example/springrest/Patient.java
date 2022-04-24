@@ -8,27 +8,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-@Table(name = "patients")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Patient {
-
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "name", unique = false, nullable = false, length = 100)
-    @NotBlank(message = "name.missing")
-    private String name;
-
-    @Column(name = "email", unique = true, nullable = false, length = 100)
-    @NotBlank(message = "email.missing")
-    @Email(message = "email.not.valid")
-    private String email;
-
-    @Column(name = "age", unique = false, nullable = false)
-    private int age;
-
     // n-n relationship with doctor
     @ManyToMany(cascade=CascadeType.ALL)
     // owning side
@@ -37,11 +18,15 @@ public class Patient {
     // 1-n relationship with examination
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     // creates table patient_examinations
+    // CascadeType.ALL = needed for add examination: you have a collection in your entity,
+    // and that collection has one or more items which are not present
+    // in the database. By specifying the above options you tell
+    // hibernate to save them to the database when saving their parent.
     //@JoinColumn(name = "patient_id")
     // creates no extra table, but patient_id in examinations table
     @JoinTable(name="patient_examination", joinColumns={@JoinColumn(name="patient_id", referencedColumnName="id")}
             , inverseJoinColumns={@JoinColumn(name="examination_id", referencedColumnName="id")})
-    // creates table patient_examination
+    // creates table patient_examination and patient_id in examination table
     private List<Examination> examinations;
 
     public List<Examination> getExaminations() {
@@ -66,6 +51,23 @@ public class Patient {
         this.doctors.add(doctor);
         doctor.addPatient(this);
     }
+
+    @Id
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "name", unique = false, nullable = false, length = 100)
+    @NotBlank(message = "name.missing")
+    private String name;
+
+    @Column(name = "email", unique = true, nullable = false, length = 100)
+    @NotBlank(message = "email.missing")
+    @Email(message = "email.not.valid")
+    private String email;
+
+    @Column(name = "age", unique = false, nullable = false)
+    private int age;
 
     public int getAge() {
         return age;

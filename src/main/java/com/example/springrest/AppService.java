@@ -18,25 +18,6 @@ public class AppService {
     @Autowired
     private DoctorRepository doctorRepository;
 
-    public Patient addPatient(Patient patient) throws ServiceException {
-        if (patientRepository.findByEmail(patient.getEmail()) != null){
-            throw new ServiceException("add", "email.already.used");
-        }
-        return patientRepository.save(patient);
-    }
-
-    public Iterable<Patient> findAllPatients() {
-        return patientRepository.findAll();
-    }
-
-    public void deletePatientWithId(long id) {
-        patientRepository.deleteById(id);
-    }
-
-    public long countPatients() {
-        return patientRepository.findAll().size();
-    }
-
     public Patient addExamination (Examination examination, Long patientId) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(()->new ServiceException("add", "patient not found"));
         patient.addExamination(examination);
@@ -70,5 +51,24 @@ public class AppService {
         patient.addDoctor(doctor);
         doctorRepository.save(doctor);
         return doctor;
+    }
+
+    public Patient addPatient(Patient patient) throws ServiceException {
+        if (patientRepository.findByEmail(patient.getEmail()) != null){
+            throw new ServiceException("add", "email.already.used");
+        }
+        return patientRepository.save(patient);
+    }
+
+    public Iterable<Patient> findAllPatients() {
+        return patientRepository.findAll();
+    }
+
+    public void deletePatientWithId(long id) {
+        patientRepository.deleteById(id);
+    }
+
+    public long countPatients() {
+        return patientRepository.findAll().size();
     }
 }

@@ -8,17 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "doctors")
 public class Doctor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
-    @Column(name = "name", unique = false, nullable = false, length = 100)
-    @NotBlank(message = "name.missing")
-    private String name;
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "doctors")
@@ -28,6 +18,15 @@ public class Doctor {
     public void addPatient(Patient patient) {
         patients.add(patient);
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
+
+    @Column(name = "name", unique = false, nullable = false, length = 100)
+    @NotBlank(message = "name.missing")
+    private String name;
 
     public String getName() {
         return name;
