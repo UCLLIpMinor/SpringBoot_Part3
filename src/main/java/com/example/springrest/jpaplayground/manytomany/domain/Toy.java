@@ -1,8 +1,10 @@
 package com.example.springrest.jpaplayground.manytomany.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,7 +16,6 @@ public class Toy {
 
     private String name;
 
-    @ManyToMany(mappedBy = "favoriteToys")
     private Set<Dog> favoritedBy;
 
     public Long getId() {
@@ -34,14 +35,10 @@ public class Toy {
     }
 
     public Set<Dog> getFavoritedBy() {
-        if (favoritedBy == null) {
-            favoritedBy = new HashSet<>();
-        }
-
         return favoritedBy;
     }
 
     public void addFavoritedBy(Dog dog) {
-        this.getFavoritedBy().add(dog);
+        // ...
     }
 }

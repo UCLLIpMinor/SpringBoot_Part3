@@ -6,8 +6,6 @@ import com.example.springrest.jpaplayground.onetomany.domain.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -17,36 +15,29 @@ public class CartController {
 
     @GetMapping("/{id}")
     public CartDto getCart(@PathVariable("id") Long id) {
-        return toDto(cartService.findCart(id));
+        // ...
+        return null;
     }
 
     @PostMapping
     public CartDto addCart(@RequestBody CartDto cart) {
-        return toDto(cartService.addCart(cart));
+        // ...
+        return null;
     }
 
     @PostMapping("/{cartId}/cartItem")
     public CartDto addCartItemToCart(@PathVariable("cartId") Long cartId, @RequestBody CartItemDto cartItem) {
-        return toDto(cartService.addCartItem(cartId, cartItem));
+        // ...
+        return null;
     }
 
     public static CartDto toDto(Cart cart) {
-        CartDto dto = new CartDto();
-
-        dto.setId(cart.getId());
-        dto.setItems(cart.getItems().stream().map(CartController::toDto).collect(Collectors.toList()));
-
-        return dto;
+        // ...
+        return null;
     }
 
     public static CartItemDto toDto(CartItem cartItem) {
-        CartItemDto dto = new CartItemDto();
-
-        dto.setId(cartItem.getId());
-        dto.setName(cartItem.getName());
-        dto.setAmount(cartItem.getAmount());
-        dto.setPrice(cartItem.getPrice());
-
-        return dto;
+        // ...
+        return null;
     }
 }

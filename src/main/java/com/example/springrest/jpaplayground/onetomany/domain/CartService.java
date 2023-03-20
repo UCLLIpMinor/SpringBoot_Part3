@@ -12,23 +12,17 @@ public class CartService {
     private CartRepository cartRepository;
 
     public Cart findCart(Long id) {
-        return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("Cart not found"));
+        // ...
+        return null;
     }
 
     public Cart addCart(CartDto dto) {
-        Cart cart = new Cart();
-        return cartRepository.save(cart);
+        // ...
+        return null;
     }
 
     public Cart addCartItem(Long cartId, CartItemDto dto) {
-        Cart cart = findCart(cartId);
-
-        CartItem cartItem = new CartItem();
-        cartItem.setName(dto.getName());
-        cartItem.setAmount(dto.getAmount());
-        cartItem.setPrice(dto.getPrice());
-
-        cart.addItem(cartItem);
-        return cartRepository.save(cart);
+        // ...
+        return null;
     }
 }

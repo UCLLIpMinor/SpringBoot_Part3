@@ -1,8 +1,10 @@
 package com.example.springrest.jpaplayground.manytomany.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,12 +16,7 @@ public class Dog {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "toy_favorites",
-        joinColumns = @JoinColumn(name = "dog_id"),
-        inverseJoinColumns = @JoinColumn(name = "toy_id")
-    )
+    // ...
     private Set<Toy> favoriteToys;
 
     public Long getId() {
@@ -39,15 +36,10 @@ public class Dog {
     }
 
     public Set<Toy> getFavoriteToys() {
-        if (favoriteToys == null) {
-            this.favoriteToys = new HashSet<>();
-        }
-
         return favoriteToys;
     }
 
     public void addToy(Toy toy) {
-        this.getFavoriteToys().add(toy);
-        toy.addFavoritedBy(this);
+        // ...
     }
 }

@@ -10,6 +10,7 @@ public class ToyService {
     private ToyRepository toyRepository;
 
     public Toy findToy(Long id) {
-        return toyRepository.findById(id).orElseThrow(() -> new RuntimeException("Toy not found"));
+        // ...
+        return null;
     }
 }
