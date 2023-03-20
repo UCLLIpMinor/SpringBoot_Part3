@@ -1,4 +1,4 @@
-package com.example.springrest.jpaplayground.onetomany;
+package com.example.springrest.jpaplayground.onetomany.domain;
 
 import jakarta.persistence.*;
 
